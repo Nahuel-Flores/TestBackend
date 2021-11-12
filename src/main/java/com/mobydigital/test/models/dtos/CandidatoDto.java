@@ -1,0 +1,24 @@
+package com.mobydigital.test.models.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.Date;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class CandidatoDto {
+
+    private Long id;
+    private String nombre;
+    private String apellido;
+    private String tipoDNI;
+    private String dni;
+    private Date fechaNacimiento;
+}
