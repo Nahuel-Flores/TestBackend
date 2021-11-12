@@ -1,4 +1,4 @@
-package com.testBackend.testBackend.models.entities;
+package com.mobydigital.test.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

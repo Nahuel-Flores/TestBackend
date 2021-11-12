@@ -1,6 +1,6 @@
-package com.testBackend.testBackend.repositorys;
+package com.mobydigital.test.repositorys;
 
-import com.testBackend.testBackend.models.entities.Tecnologia;
+import com.mobydigital.test.models.entities.Tecnologia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

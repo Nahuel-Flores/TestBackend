@@ -1,4 +1,4 @@
-package com.testBackend.testBackend.models.entities;
+package com.mobydigital.test.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,12 +27,18 @@ public class Candidato {
     @Column(unique = true, nullable = false)
     private Long id;
 
+    @NonNull
+    @NotBlank (message = "El nombre no puede estar vacio")
     @Column(name = "nombre")
     private String nombre;
 
+    @NonNull
+    @NotBlank (message = "El apellido no puede estar vacio")
     @Column(name = "apellido")
     private String apellido;
 
+    @NonNull
+    @NotBlank (message = "El tipoDNI no puede estar vacio")
     @JoinColumn(name = "id_tipo_dni", referencedColumnName = "id")
     @ManyToOne
     private TipoDNI tipoDNI;
@@ -40,7 +46,7 @@ public class Candidato {
     @NonNull
     @NotBlank (message = "El DNI no puede estar vacio")
     @Column(name = "dni")
-    private String DNI;
+    private String dni;
 
     @NonNull
     @NotBlank (message = "La fecha de nacimiento no puede estar vacia")
