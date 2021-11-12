@@ -23,7 +23,7 @@ import javax.validation.constraints.NotBlank;
 public class CandidatoXTecnologia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tecnologia_x_candidato")
+    @Column(name = "id_candidato_x_tecnologia")
     private Long id;
 
     @JoinColumn(name = "id_candidato", referencedColumnName = "id")
@@ -34,7 +34,7 @@ public class CandidatoXTecnologia {
     @ManyToOne
     private Tecnologia tecnologia;
 
-    @NonNull
+
     @NotBlank(message = "Los anños de experiencia no pueden estar vacios")
     @Column(name = "anios_experiencia")
     private int aniosExperiencia;

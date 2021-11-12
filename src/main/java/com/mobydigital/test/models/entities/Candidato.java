@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.util.Date;
 
@@ -27,28 +28,28 @@ public class Candidato {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @NonNull
+
     @NotBlank (message = "El nombre no puede estar vacio")
     @Column(name = "nombre")
     private String nombre;
 
-    @NonNull
+
     @NotBlank (message = "El apellido no puede estar vacio")
     @Column(name = "apellido")
     private String apellido;
 
-    @NonNull
+
     @NotBlank (message = "El tipoDNI no puede estar vacio")
     @JoinColumn(name = "id_tipo_dni", referencedColumnName = "id")
     @ManyToOne
     private TipoDNI tipoDNI;
 
-    @NonNull
+
     @NotBlank (message = "El DNI no puede estar vacio")
-    @Column(name = "dni")
+    @Column(name = "dni",unique = true)
     private String dni;
 
-    @NonNull
+
     @NotBlank (message = "La fecha de nacimiento no puede estar vacia")
     @Past
     @Column(name = "fecha_nacimiento")

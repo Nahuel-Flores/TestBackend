@@ -41,7 +41,7 @@ public class CandidatoServiceImp implements CandidatoService {
     @Override
     public void eliminar(CandidatoDto candidatoDto) {
         Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
-         candidatoRepository.delete(candidato);
+        candidatoRepository.delete(candidato);
     }
 
     @Override
