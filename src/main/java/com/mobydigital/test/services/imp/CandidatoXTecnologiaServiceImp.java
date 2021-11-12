@@ -55,4 +55,16 @@ public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaServi
 
         return candidatoXTecnologiaDtos;
     }
+
+    @Override
+    public List<CandidatoXTecnologiaDto> findCandidatosXTecnologiaByTecnologia(String nombreTecnologia) {
+        List<CandidatoXTecnologia> candidatoXTecnologias = candidatoXTecnologiaRepository.findCandidatosXTecnologiaByTecnologia(nombreTecnologia);
+        List<CandidatoXTecnologiaDto> candidatoXTecnologiaDtos = new ArrayList<>();
+
+        for (CandidatoXTecnologia candidatoXTecnologia: candidatoXTecnologias) {
+            candidatoXTecnologiaDtos.add(modelMapper.map(candidatoXTecnologia,CandidatoXTecnologiaDto.class));
+        }
+
+        return candidatoXTecnologiaDtos;
+    }
 }

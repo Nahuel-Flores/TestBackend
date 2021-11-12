@@ -1,7 +1,8 @@
 package com.mobydigital.test.services;
 
 import com.mobydigital.test.models.dtos.CandidatoXTecnologiaDto;
-import com.mobydigital.test.models.entities.CandidatoXTecnologia;
+
+
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface CandidatoXTecnologiaService {
     void eliminar(CandidatoXTecnologiaDto candidatoXTecnologiaDto);
 
     List<CandidatoXTecnologiaDto> listarTodos();
+
+    List<CandidatoXTecnologiaDto> findCandidatosXTecnologiaByTecnologia(String nombreTecnologia);
 }
