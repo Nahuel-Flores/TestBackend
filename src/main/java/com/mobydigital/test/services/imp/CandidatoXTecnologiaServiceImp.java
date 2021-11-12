@@ -1,5 +1,6 @@
 package com.mobydigital.test.services.imp;
 
+import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.dtos.CandidatoXTecnologiaDto;
 import com.mobydigital.test.models.entities.CandidatoXTecnologia;
 import com.mobydigital.test.repositorys.CandidatoXTecnologiaRepository;
@@ -34,7 +35,7 @@ public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaServi
             return modelMapper.map(candidatoXTecnologiaRepository.save(candidatoXTecnologia),CandidatoXTecnologiaDto.class);
         }
         else {
-            return null;
+            throw new NotFoundException("No fue encontrado el candidatoXTecnologia con id: ",candidatoXTecnologia.getId());
         }
     }
 

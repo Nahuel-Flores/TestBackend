@@ -1,5 +1,6 @@
 package com.mobydigital.test.services.imp;
 
+import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.dtos.TecnologiaDto;
 import com.mobydigital.test.models.entities.Tecnologia;
 import com.mobydigital.test.repositorys.TecnologiaRepository;
@@ -34,7 +35,7 @@ public class TecnologiaServiceImp implements TecnologiaService {
             return modelMapper.map(tecnologiaRepository.save(tecnologia),TecnologiaDto.class);
         }
         else {
-            return null;
+            throw new NotFoundException("No fue encontrada la tecnologia con id: ",tecnologia.getId());
         }
     }
 

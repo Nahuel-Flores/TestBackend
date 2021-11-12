@@ -1,5 +1,6 @@
 package com.mobydigital.test.services.imp;
 
+import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.entities.Candidato;
 import com.mobydigital.test.models.dtos.CandidatoDto;
 import com.mobydigital.test.repositorys.CandidatoRepository;
@@ -34,7 +35,7 @@ public class CandidatoServiceImp implements CandidatoService {
             return modelMapper.map(candidatoRepository.save(candidato),CandidatoDto.class);
         }
         else {
-            return null;
+            throw new NotFoundException("No fue encontrado el candidato con id: ",candidato.getId());
         }
     }
 
