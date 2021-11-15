@@ -14,8 +14,8 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tipo_dni")
-public class TipoDNI {
+@Table(name = "tipos_documento")
+public class TipoDocumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)

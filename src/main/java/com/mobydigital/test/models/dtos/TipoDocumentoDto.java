@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-public class TipoDNIDto {
+public class TipoDocumentoDto {
     private long id;
     private String tipo;
 }
