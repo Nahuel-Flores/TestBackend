@@ -49,7 +49,12 @@ public class CandidatoController {
         return new ResponseEntity<>(candidatoService.listarTodos(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/candidatosxtecnologiabynombre/{nombreTecnologia}")
+    @PostMapping(value = "/candidatoxtecnologia/crear")
+    public ResponseEntity<CandidatoXTecnologiaDto> crearCandidatoXTecnologia(@RequestBody CandidatoXTecnologiaDto candidatoXTecnologiaDto) {
+        return new ResponseEntity<>(candidatoXTecnologiaService.guardar(candidatoXTecnologiaDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/candidatoxtecnologia/findbytecnologia/{nombreTecnologia}")
     public ResponseEntity<List<CandidatoXTecnologiaDto>> candidatosXTecnologiaByTecnologia(@PathVariable String nombreTecnologia) {
         return new ResponseEntity<>(candidatoXTecnologiaService.findCandidatosXTecnologiaByTecnologia(nombreTecnologia), HttpStatus.OK);
     }
