@@ -1,10 +1,12 @@
 package com.mobydigital.test.services.imp;
 
+import com.mobydigital.test.exceptions.EmptyParamsException;
 import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.entities.Candidato;
 import com.mobydigital.test.models.dtos.CandidatoDto;
 import com.mobydigital.test.repositorys.CandidatoRepository;
 import com.mobydigital.test.services.CandidatoService;
+import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,30 +14,34 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 @Service
 public class CandidatoServiceImp implements CandidatoService {
 
     @Autowired
     private CandidatoRepository candidatoRepository;
 
-
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public CandidatoDto guardar(CandidatoDto candidatoDto) {
-        Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
-        return modelMapper.map(candidatoRepository.save(candidato),CandidatoDto.class);
+        if (candidatoDto.getNumeroDocumento() != null && candidatoDto.getFechaNacimiento() != null){
+            Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
+            return modelMapper.map(candidatoRepository.save(candidato),CandidatoDto.class);
+        }else {
+            throw new EmptyParamsException("Los parametros numeroDocumento y fechaNacimiento no pueden estar vacios");
+        }
     }
 
     @Override
     public CandidatoDto modificar(CandidatoDto candidatoDto) {
-        Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
-        Candidato candidatoBuscado = candidatoRepository.findById(candidato.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró el candidato: " + candidato.getId()));
+        Candidato candidatoBuscado = candidatoRepository.findById(candidatoDto.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró el candidato: " + candidatoDto.getId()));
         if (candidatoBuscado != null){
-            return modelMapper.map(candidatoRepository.save(candidato),CandidatoDto.class);
+            return guardar(candidatoDto);
         }
         else {
-            throw new NotFoundException("No fue encontrado el candidato con id: ",candidato.getId());
+            throw new NotFoundException("No fue encontrado el candidato con id: ",candidatoDto.getId());
         }
     }
 
@@ -43,6 +49,9 @@ public class CandidatoServiceImp implements CandidatoService {
     public void eliminar(CandidatoDto candidatoDto) {
         Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
         candidatoRepository.delete(candidato);
+        if (!candidatoRepository.existsById(candidato.getId())){
+            log.info("El candidato fue eliminado con exito.");
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.mobydigital.test.models.dtos.CandidatoXTecnologiaDto;
 import com.mobydigital.test.models.entities.CandidatoXTecnologia;
 import com.mobydigital.test.repositorys.CandidatoXTecnologiaRepository;
 import com.mobydigital.test.services.CandidatoXTecnologiaService;
+import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,15 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log
 @Service
 public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaService {
 
     @Autowired
     CandidatoXTecnologiaRepository candidatoXTecnologiaRepository;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -29,13 +32,12 @@ public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaServi
 
     @Override
     public CandidatoXTecnologiaDto modificar(CandidatoXTecnologiaDto candidatoXTecnologiaDto) {
-        CandidatoXTecnologia candidatoXTecnologia = modelMapper.map(candidatoXTecnologiaDto,CandidatoXTecnologia.class);
-        CandidatoXTecnologia candidatoXTecnologiaBuscado = candidatoXTecnologiaRepository.findById(candidatoXTecnologia.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró el candidato: " + candidatoXTecnologia.getId()));
+        CandidatoXTecnologia candidatoXTecnologiaBuscado = candidatoXTecnologiaRepository.findById(candidatoXTecnologiaDto.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró el candidato: " + candidatoXTecnologiaDto.getId()));
         if (candidatoXTecnologiaBuscado != null){
-            return modelMapper.map(candidatoXTecnologiaRepository.save(candidatoXTecnologia),CandidatoXTecnologiaDto.class);
+            return guardar(candidatoXTecnologiaDto);
         }
         else {
-            throw new NotFoundException("No fue encontrado el candidatoXTecnologia con id: ",candidatoXTecnologia.getId());
+            throw new NotFoundException("No fue encontrado el candidatoXTecnologia con id: ",candidatoXTecnologiaDto.getId());
         }
     }
 
@@ -43,6 +45,9 @@ public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaServi
     public void eliminar(CandidatoXTecnologiaDto candidatoXTecnologiaDto) {
         CandidatoXTecnologia candidatoXTecnologia = modelMapper.map(candidatoXTecnologiaDto,CandidatoXTecnologia.class);
         candidatoXTecnologiaRepository.delete(candidatoXTecnologia);
+        if (!candidatoXTecnologiaRepository.existsById(candidatoXTecnologia.getId())){
+            log.info("El candidatoXTecnologia fue eliminado con exito.");
+        }
     }
 
     @Override
