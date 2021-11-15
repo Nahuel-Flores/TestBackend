@@ -3,7 +3,7 @@ package com.mobydigital.test.exceptions;
 import lombok.extern.java.Log;
 
 @Log
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends Exception{
     private final Long id;
 
     public NotFoundException(String message,Long id) {

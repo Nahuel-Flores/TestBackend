@@ -25,7 +25,7 @@ public class CandidatoServiceImp implements CandidatoService {
     private ModelMapper modelMapper;
 
     @Override
-    public CandidatoDto guardar(CandidatoDto candidatoDto) {
+    public CandidatoDto guardar(CandidatoDto candidatoDto) throws EmptyParamsException {
         if (candidatoDto.getNumeroDocumento() != null && candidatoDto.getFechaNacimiento() != null){
             Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);
             return modelMapper.map(candidatoRepository.save(candidato),CandidatoDto.class);
@@ -35,7 +35,7 @@ public class CandidatoServiceImp implements CandidatoService {
     }
 
     @Override
-    public CandidatoDto modificar(CandidatoDto candidatoDto) {
+    public CandidatoDto modificar(CandidatoDto candidatoDto) throws EmptyParamsException {
         Candidato candidatoBuscado = candidatoRepository.findById(candidatoDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No fue encontrado el candidato con id: " + candidatoDto.getId()));
 
