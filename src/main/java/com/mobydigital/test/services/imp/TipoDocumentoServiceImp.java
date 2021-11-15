@@ -1,6 +1,8 @@
 package com.mobydigital.test.services.imp;
 
+import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.dtos.TipoDocumentoDto;
+import com.mobydigital.test.models.entities.Tecnologia;
 import com.mobydigital.test.models.entities.TipoDocumento;
 import com.mobydigital.test.repositorys.TipoDocumentoRepository;
 import com.mobydigital.test.services.TipoDocumentoService;
@@ -9,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +33,13 @@ public class TipoDocumentoServiceImp implements TipoDocumentoService {
 
     @Override
     public void eliminar(TipoDocumentoDto tipoDocumentoDto) {
-        TipoDocumento tipoDocumento = modelMapper.map(tipoDocumentoDto, TipoDocumento.class);
+        TipoDocumento tipoDocumentoBuscado = tipoDocumentoRepository.findById(tipoDocumentoDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrado el TipoDocumento con id: " + tipoDocumentoDto.getId()));
+
+        TipoDocumento tipoDocumento = modelMapper.map(tipoDocumentoDto,TipoDocumento.class);
         tipoDocumentoRepository.delete(tipoDocumento);
         if (!tipoDocumentoRepository.existsById(tipoDocumento.getId())){
-            log.info("El tipoDNI fue eliminado con exito.");
+            log.info("El TipoDocumento fue eliminado con exito.");
         }
     }
 

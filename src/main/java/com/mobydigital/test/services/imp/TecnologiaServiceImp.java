@@ -33,20 +33,19 @@ public class TecnologiaServiceImp implements TecnologiaService {
     @Override
     public TecnologiaDto modificar(TecnologiaDto tecnologiaDto) {
 
-        Tecnologia tecnologiaBuscado = tecnologiaRepository.findById(tecnologiaDto.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró la Tecnologia: " + tecnologiaDto.getId()));
-        if (tecnologiaBuscado != null){
+        Tecnologia tecnologiaBuscado = tecnologiaRepository.findById(tecnologiaDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No fue encontrada la tecnologia con id: " + tecnologiaDto.getId()));
             return guardar(tecnologiaDto);
-        }
-        else {
-            throw new NotFoundException("No fue encontrada la tecnologia con id: ",tecnologiaDto.getId());
-        }
     }
 
     @Override
     public void eliminar(TecnologiaDto tecnologiaDto) {
+        Tecnologia tecnologiaBuscado = tecnologiaRepository.findById(tecnologiaDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrada la tecnologia con id: " + tecnologiaDto.getId()));
+
         Tecnologia tecnologia = modelMapper.map(tecnologiaDto,Tecnologia.class);
         tecnologiaRepository.delete(tecnologia);
-        if (!tecnologiaRepository.existsById(tecnologia.getId())){
+        if (!tecnologiaRepository.existsById(tecnologiaDto.getId())){
             log.info("La tecnologia fue eliminado con exito.");
         }
     }

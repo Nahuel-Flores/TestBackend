@@ -32,17 +32,16 @@ public class CandidatoXTecnologiaServiceImp implements CandidatoXTecnologiaServi
 
     @Override
     public CandidatoXTecnologiaDto modificar(CandidatoXTecnologiaDto candidatoXTecnologiaDto) {
-        CandidatoXTecnologia candidatoXTecnologiaBuscado = candidatoXTecnologiaRepository.findById(candidatoXTecnologiaDto.getId()).orElseThrow(() -> new EntityNotFoundException("No se encontró el candidato: " + candidatoXTecnologiaDto.getId()));
-        if (candidatoXTecnologiaBuscado != null){
-            return guardar(candidatoXTecnologiaDto);
-        }
-        else {
-            throw new NotFoundException("No fue encontrado el candidatoXTecnologia con id: ",candidatoXTecnologiaDto.getId());
-        }
+        CandidatoXTecnologia candidatoXTecnologiaBuscado = candidatoXTecnologiaRepository.findById(candidatoXTecnologiaDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No fue encontrado el candidatoXTecnologia con id: " + candidatoXTecnologiaDto.getId()));
+        return guardar(candidatoXTecnologiaDto);
     }
 
     @Override
     public void eliminar(CandidatoXTecnologiaDto candidatoXTecnologiaDto) {
+        CandidatoXTecnologia candidatoXTecnologiaBuscado = candidatoXTecnologiaRepository.findById(candidatoXTecnologiaDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrado el candidatoXTecnologia con id: " + candidatoXTecnologiaDto.getId()));
+
         CandidatoXTecnologia candidatoXTecnologia = modelMapper.map(candidatoXTecnologiaDto,CandidatoXTecnologia.class);
         candidatoXTecnologiaRepository.delete(candidatoXTecnologia);
         if (!candidatoXTecnologiaRepository.existsById(candidatoXTecnologia.getId())){
