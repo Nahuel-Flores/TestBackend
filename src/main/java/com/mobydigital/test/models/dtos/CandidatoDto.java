@@ -18,7 +18,7 @@ public class CandidatoDto {
     private Long id;
     private String nombre;
     private String apellido;
-    private String tipoDNI;
-    private String dni;
+    private TipoDocumentoDto tipoDocumento;
+    private String numeroDocumento;
     private Date fechaNacimiento;
 }
