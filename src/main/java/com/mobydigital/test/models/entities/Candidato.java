@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.util.Date;
 
@@ -39,17 +39,17 @@ public class Candidato {
     private String apellido;
 
 
-    @NotBlank (message = "El tipoDNI no puede estar vacio")
-    @JoinColumn(name = "id_tipo_dni", referencedColumnName = "id")
+    @NotBlank (message = "El tipoDocumento no puede estar vacio")
+    @JoinColumn(name = "id_tipo_documento", referencedColumnName = "id")
     @ManyToOne
-    private TipoDNI tipoDNI;
+    private TipoDocumento tipoDocumento;
 
+    @NonNull
+    @NotBlank (message = "El Documento no puede estar vacio")
+    @Column(name = "documento",unique = true)
+    private String numeroDocumento;
 
-    @NotBlank (message = "El DNI no puede estar vacio")
-    @Column(name = "dni",unique = true)
-    private String dni;
-
-
+    @NonNull
     @NotBlank (message = "La fecha de nacimiento no puede estar vacia")
     @Past
     @Column(name = "fecha_nacimiento")
