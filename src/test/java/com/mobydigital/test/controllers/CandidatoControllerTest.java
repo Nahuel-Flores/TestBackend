@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import static com.mobydigital.test.testutils.TestEntityFactory.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,6 +55,16 @@ public class CandidatoControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(getCandidatoDtoJSON()))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser
+    void eliminarCandidatoTest() throws Exception{
+        mockMvc.perform(delete("/api/candidato/eliminar", getCandidatoDtoJSON())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(getCandidatoDtoJSON()))
+                .andExpect(status().isOk());
+        verify(candidatoService, times(1)).eliminar(getCandidatoDto());
     }
 
     @Test
