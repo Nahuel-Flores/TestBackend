@@ -1,5 +1,6 @@
 package com.mobydigital.test.controllers;
 
+import com.mobydigital.test.exceptions.EmptyParamsException;
 import com.mobydigital.test.models.dtos.CandidatoDto;
 import com.mobydigital.test.models.dtos.CandidatoXTecnologiaDto;
 import com.mobydigital.test.services.CandidatoService;
@@ -29,12 +30,12 @@ public class CandidatoController {
     private CandidatoXTecnologiaService candidatoXTecnologiaService;
 
     @PostMapping(value = "/crear")
-    public ResponseEntity<CandidatoDto> crearCandidato(@RequestBody CandidatoDto candidatoDto) {
+    public ResponseEntity<CandidatoDto> crearCandidato(@RequestBody CandidatoDto candidatoDto) throws EmptyParamsException {
         return new ResponseEntity<>(candidatoService.guardar(candidatoDto), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/actualizar")
-    public ResponseEntity<CandidatoDto> actualizarCandidato(@RequestBody CandidatoDto candidatoDto){
+    public ResponseEntity<CandidatoDto> actualizarCandidato(@RequestBody CandidatoDto candidatoDto) throws EmptyParamsException {
         return new ResponseEntity<>(candidatoService.modificar(candidatoDto), HttpStatus.OK);
     }
 

@@ -1,7 +1,6 @@
 package com.mobydigital.test.services.imp;
 
 import com.mobydigital.test.exceptions.EmptyParamsException;
-import com.mobydigital.test.exceptions.NotFoundException;
 import com.mobydigital.test.models.entities.Candidato;
 import com.mobydigital.test.models.dtos.CandidatoDto;
 import com.mobydigital.test.repositorys.CandidatoRepository;
