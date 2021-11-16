@@ -25,7 +25,6 @@ import java.util.Date;
 public class Candidato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
     private Long id;
 
 
@@ -53,6 +52,6 @@ public class Candidato {
     @NotBlank (message = "La fecha de nacimiento no puede estar vacia")
     @Past
     @Column(name = "fecha_nacimiento")
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 }
 
