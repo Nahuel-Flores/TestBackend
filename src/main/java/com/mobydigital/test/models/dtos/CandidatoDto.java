@@ -20,5 +20,5 @@ public class CandidatoDto {
     private String apellido;
     private TipoDocumentoDto tipoDocumento;
     private String numeroDocumento;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
 }
