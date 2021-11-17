@@ -33,14 +33,14 @@ public class TecnologiaServiceImp implements TecnologiaService {
     @Override
     public TecnologiaDto modificar(TecnologiaDto tecnologiaDto) {
 
-        Tecnologia tecnologiaBuscado = tecnologiaRepository.findById(tecnologiaDto.getId())
+        tecnologiaRepository.findById(tecnologiaDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No fue encontrada la tecnologia con id: " + tecnologiaDto.getId()));
             return guardar(tecnologiaDto);
     }
 
     @Override
     public void eliminar(TecnologiaDto tecnologiaDto) {
-        Tecnologia tecnologiaBuscado = tecnologiaRepository.findById(tecnologiaDto.getId())
+        tecnologiaRepository.findById(tecnologiaDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrada la tecnologia con id: " + tecnologiaDto.getId()));
 
         Tecnologia tecnologia = modelMapper.map(tecnologiaDto,Tecnologia.class);

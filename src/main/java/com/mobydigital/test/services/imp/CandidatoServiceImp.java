@@ -35,7 +35,7 @@ public class CandidatoServiceImp implements CandidatoService {
 
     @Override
     public CandidatoDto modificar(CandidatoDto candidatoDto) throws EmptyParamsException {
-        Candidato candidatoBuscado = candidatoRepository.findById(candidatoDto.getId())
+        candidatoRepository.findById(candidatoDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No fue encontrado el candidato con id: " + candidatoDto.getId()));
 
         return guardar(candidatoDto);
@@ -44,7 +44,7 @@ public class CandidatoServiceImp implements CandidatoService {
 
     @Override
     public void eliminar(CandidatoDto candidatoDto) {
-        Candidato candidatoBuscado = candidatoRepository.findById(candidatoDto.getId())
+        candidatoRepository.findById(candidatoDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrado el candidato con id: " + candidatoDto.getId()));
 
         Candidato candidato = modelMapper.map(candidatoDto,Candidato.class);

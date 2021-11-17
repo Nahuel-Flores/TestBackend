@@ -33,7 +33,7 @@ public class TipoDocumentoServiceImp implements TipoDocumentoService {
 
     @Override
     public void eliminar(TipoDocumentoDto tipoDocumentoDto) {
-        TipoDocumento tipoDocumentoBuscado = tipoDocumentoRepository.findById(tipoDocumentoDto.getId())
+        tipoDocumentoRepository.findById(tipoDocumentoDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No se pudo eliminar ya que no fue encontrado el TipoDocumento con id: " + tipoDocumentoDto.getId()));
 
         TipoDocumento tipoDocumento = modelMapper.map(tipoDocumentoDto,TipoDocumento.class);
